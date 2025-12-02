@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Usuário</title>
+</head>
+<body>
+    <h1>Editar Usuário</h1>
+    
+    <form action="/users/update/<%= user._id %>" method="POST">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+        
+        <div>
+            <label>Nome:</label>
+            <!-- --Output Escaping -->
+            <input type="text" name="nome_usuario" value="<%= user.nome %>" required>
+        </div>
+        <div>
+            <label>Cargo:</label>
+            <!-- --Output Escaping -->
+            <input type="text" name="cargo_usuario" value="<%= user.cargo %>" required>
+        </div>
+        <br>
+        <button type="submit">💾 Salvar Alterações</button>
+    </form>
+    <br>
+    <a href="/users">Cancelar</a>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Usuários (Área Protegida)</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; }
+        header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #ccc; padding-bottom: 10px; margin-bottom: 20px; }
+        .logout-link { text-decoration: none; color: #dc3545; font-weight: bold; padding: 8px 15px; border: 1px solid #dc3545; border-radius: 4px; transition: background-color 0.3s; }
+        .logout-link:hover { background-color: #dc3545; color: white; }
+        h1 { margin: 0; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Bem-vindo(a), <%= userName %>!</h1> 
+        
+        <a href="/logout" class="logout-link">
+            Sair (Logout)
+        </a>
+    </header>
+
+    <h2>Gerenciamento de Usuários</h2>
+
+    <p>
+        <a href="/users/new">➕ Adicionar Novo Usuário (Admin)</a>
+    </p>
+
+    <ul>
+        <% usuarios.forEach(user => { %>
+            <li style="margin-bottom: 10px; border: 1px solid #ccc; padding: 10px;">
+                <strong><%= user.nome %></strong> - <%= user.cargo %>
+                
+                <div style="margin-top: 5px;">
+                    <!-- --Output Escaping -->
+                    <a href="/users/edit/<%= user._id %>">
+                        <button style="margin-right: 5px;">✏️ Editar</button>
+                    </a>
+                    <!-- --Output Escaping -->
+                    <form action="/users/delete/<%= user._id %>" method="POST" style="display:inline;">
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                        <button type="submit" style="color: red;">🗑️ Excluir</button>
+                    </form>
+                </div>
+            </li>
+        <% }); %>
+    </ul>
+
+</body>
+</html>
